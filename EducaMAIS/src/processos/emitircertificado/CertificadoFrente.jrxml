@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2cb8a2f4-0713-4edd-85f1-14537ff5582a">
+	<property name="ireport.zoom" value="1.3310000000000013"/>
+	<property name="ireport.x" value="416"/>
+	<property name="ireport.y" value="1099"/>
+	<parameter name="codigo_pedido" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.NOME AS NOME_ALUNO, A.RG, DAYOFMONTH(P.DATA_INICIAL) AS DIA_INI, DAYOFMONTH(P.DATA_FINAL) AS DIA_FIM, MONTHNAME(P.DATA_INICIAL) AS NOME_MES_INI, MONTHNAME(P.DATA_FINAL) AS NOME_MES_FIM, YEAR(P.DATA_FINAL) AS ANO, C.NOME AS NOME_CURSO, C.CARGA_HORARIA, DAYOFMONTH(P.DATA_EMISSAO) AS DIA_EMISSAO, MONTHNAME(P.DATA_EMISSAO) AS NOME_DIA_EMISSAO, YEAR(P.DATA_EMISSAO) AS ANO_EMISSAO, P.NOTA AS NOTA
+FROM PEDIDOSS P, CURSOS C, ALUNOS A
+WHERE P.CODIGO = $P{codigo_pedido} AND 
+      C.CODIGO = P.CODIGO_CURSO AND
+      A.CODIGO = P.CODIGO_ALUNO]]>
+	</queryString>
+	<field name="NOME_ALUNO" class="java.lang.String"/>
+	<field name="RG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIA_INI" class="java.lang.Long"/>
+	<field name="DIA_FIM" class="java.lang.Long"/>
+	<field name="NOME_MES_INI" class="java.lang.String"/>
+	<field name="NOME_MES_FIM" class="java.lang.String"/>
+	<field name="ANO" class="java.lang.Long"/>
+	<field name="NOME_CURSO" class="java.lang.String"/>
+	<field name="CARGA_HORARIA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIA_EMISSAO" class="java.lang.Long"/>
+	<field name="NOME_DIA_EMISSAO" class="java.lang.String"/>
+	<field name="ANO_EMISSAO" class="java.lang.Long"/>
+	<field name="NOTA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555">
+			<image>
+				<reportElement x="0" y="0" width="802" height="555" uuid="58386ae1-4824-4ac1-a0f6-e5c99a41eb7b"/>
+				<imageExpression><![CDATA["C:\\EducaMais\\Certificado\\Frente.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<detail>
+		<band height="542" splitType="Stretch">
+			<textField>
+				<reportElement x="52" y="220" width="704" height="175" uuid="c00c5983-01b6-4af4-a151-a81a2a15e96f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="18"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Certificamos que " + $F{NOME_ALUNO}.toUpperCase() + ", com RG nº " + $F{RG} + ", participou com aproveitamento de " + $F{NOTA} + " no período de " + $F{DIA_INI} + " de " + $F{NOME_MES_INI} + " à " + $F{DIA_FIM} + " de " + $F{NOME_MES_FIM} + " de " + $F{ANO} + " do curso " + $F{NOME_CURSO}.toUpperCase() + ", na modalidade à Distância e com carga horária de " + $F{CARGA_HORARIA} + " horas/aulas promovida pela empresa EDUCAMAIS - Cursos e Treinamentos."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="72" y="439" width="274" height="1" uuid="3ab73546-187f-45d2-a57b-28b00c2224d1"/>
+			</line>
+			<staticText>
+				<reportElement x="72" y="440" width="274" height="28" uuid="ec448444-d859-416b-8895-3085488732be"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Participante]]></text>
+			</staticText>
+			<line>
+				<reportElement x="446" y="438" width="274" height="1" uuid="9e856544-4edf-4055-9743-03ffec9f7550"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="501" width="802" height="28" uuid="bf639b3e-14b7-4b01-be8d-27ad3a2037b4"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Criciúma (SC) " + $F{DIA_EMISSAO} + " de " + $F{NOME_DIA_EMISSAO} + " de " + $F{ANO_EMISSAO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="446" y="463" width="274" height="28" uuid="f0419ae1-f7a5-414c-8484-b3f516d64b0f"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diretora da Educa Mais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="439" width="274" height="28" uuid="955b53f6-b025-4f96-acdf-831b837dbc4c"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Arlete Guidi]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

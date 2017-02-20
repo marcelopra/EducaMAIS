@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2cb8a2f4-0713-4edd-85f1-14537ff5582a">
+	<property name="ireport.zoom" value="0.8264462809917371"/>
+	<property name="ireport.x" value="3"/>
+	<property name="ireport.y" value="3"/>
+	<parameter name="codigo_pedido" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numero_folha" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Users\\marce\\Documents\\NetBeansProjects\\AlphaCursos\\src\\processos\\emitircertificado\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT P.NUMERO_REGISTRO_OFICIAL, P.DATA_EMISSAO, YEAR(P.DATA_FINAL) AS ANO, DAYOFMONTH(P.DATA_EMISSAO) AS DIA_EMISSAO, MONTHNAME(P.DATA_EMISSAO) AS NOME_DIA_EMISSAO, YEAR(P.DATA_EMISSAO) AS ANO_EMISSAO, C.CODIGO AS CODIGO_CURSO, 
+(SELECT (SUM(CARGA_HORARIA_MINUTOS)) 
+ FROM CURSOS_ASSUNTOS CA 
+ WHERE CA.CODIGO_CURSO = C.CODIGO) AS TOTAL_HORAS
+FROM PEDIDOSS P, CURSOS C, ALUNOS A
+WHERE P.CODIGO = $P{codigo_pedido} AND
+      C.CODIGO = P.CODIGO_CURSO AND
+      A.CODIGO = P.CODIGO_ALUNO]]>
+	</queryString>
+	<field name="NUMERO_REGISTRO_OFICIAL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATA_EMISSAO" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ANO" class="java.lang.Long"/>
+	<field name="DIA_EMISSAO" class="java.lang.Long"/>
+	<field name="NOME_DIA_EMISSAO" class="java.lang.String"/>
+	<field name="ANO_EMISSAO" class="java.lang.Long"/>
+	<field name="CODIGO_CURSO" class="java.lang.Integer"/>
+	<field name="TOTAL_HORAS" class="java.math.BigDecimal"/>
+	<background>
+		<band height="555">
+			<image>
+				<reportElement x="0" y="0" width="802" height="555" uuid="867f1ed4-ebc7-4fb2-84b2-985eb2460a8a"/>
+				<imageExpression><![CDATA["C:\\EducaMais\\Certificado\\Atras.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<detail>
+		<band height="539" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="41" y="33" width="370" height="386" uuid="b560c563-e4cb-4439-8260-709b0baba5ab"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="300" y="99" width="111" height="287" uuid="d123cfcc-926e-4816-ab97-a225fe76a15c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="479" y="160" width="269" height="80" uuid="fdec8313-acb0-4846-a434-46caa444a558"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="479" y="160" width="269" height="16" uuid="74524efd-df30-4caa-a2b2-3b43c43a524b"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[EDUCAMAIS - Cursos e Treinamentos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="176" width="269" height="16" uuid="02748eef-aec1-401c-9538-3a83084bd3f6"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[CNPJ: 25.124.543/0001-41]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="192" width="269" height="16" uuid="afd823d9-c1f4-4a42-8f89-7f79ae1512bd"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Rua Conego Anibal di Francia, 501, apt 103]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="208" width="269" height="16" uuid="b181b66e-2f21-4765-8ee8-0a4c3da2cba7"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Pinheirinho - Criciúma/SC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="224" width="269" height="16" uuid="e18c7911-b6cb-4bce-9b2c-49ae3ebd4c72"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[CEP 88804-360]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="470" width="802" height="21" uuid="2d6ba899-a18c-4821-9d7b-c2edc7c6561e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Cursos Registrados pela Secretaria de Educação Conforme Portaria nº 008/2002, de 25/06/2002 e]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="491" width="802" height="21" uuid="bc45adbe-269d-4b00-a52d-3f7a644079c4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Publicado no Diário Oficial - SC nº 16.935 de 27/06/2002]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="434" y="340" width="329" height="79" isRemoveLineWhenBlank="true" uuid="4213e957-90a4-4ec8-9029-850c0586a14f"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Arial" size="16" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Registrado na Secretaria da Empresa EDUCAMAIS - " + "Cursos e Treinamentos Sob o nº " + $F{NUMERO_REGISTRO_OFICIAL} + " Folha " + $P{numero_folha} + " do Livro de Registro nº 001."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="419" width="329" height="21" uuid="007d9974-0b6b-4e29-b92d-04a475db2c22"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="16" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Criciúma (SC) " + $F{DIA_EMISSAO} + " de " + $F{NOME_DIA_EMISSAO} + " de " + $F{ANO_EMISSAO}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="41" y="33" width="369" height="33" uuid="04f4fe96-92d1-4fb2-87e4-97ca9d42a16e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="41" y="66" width="259" height="33" uuid="53791b4f-0865-4d32-b2c6-8b14abba085d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="300" y="66" width="110" height="33" uuid="12e5dcc2-91a1-4cc9-97be-31699b36c899"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="41" y="33" width="369" height="33" forecolor="#000000" uuid="3cb9436f-fe7b-4f90-81ac-7ac9c55e6cd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conteúdo Programático]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="41" y="66" width="259" height="33" uuid="7e1eaa3b-51c6-4d34-8dea-f96b74827f67"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conteúdo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="300" y="66" width="111" height="33" uuid="6f56dcb2-b1e3-4b93-a3fa-5668b47944f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carga Horária]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="41" y="386" width="259" height="33" backcolor="#000000" uuid="35ea1270-d468-4c5c-aff3-975f6a979cff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="300" y="386" width="111" height="33" uuid="69d797dd-d8ab-4b1e-a0d2-93ab8746177d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_HORAS} + " horas"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="41" y="386" width="259" height="33" uuid="96f16038-2ba3-4753-98fd-23539d6294bb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="300" y="386" width="111" height="33" uuid="3ad84122-72f2-4758-9e72-2683cba4f22e"/>
+			</rectangle>
+			<subreport>
+				<reportElement x="51" y="109" width="347" height="273" uuid="98e66679-4c65-474e-ab34-f6bf27fc9b6c"/>
+				<subreportParameter name="codigo_curso">
+					<subreportParameterExpression><![CDATA[$F{CODIGO_CURSO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "CertificadoAtras_Grade.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

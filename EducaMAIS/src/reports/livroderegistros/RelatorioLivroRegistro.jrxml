@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00f29515-828e-45d0-a846-2a743d18a00c">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean(($V{REPORT_COUNT}.intValue() % 2) == 0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#CCCCCC"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="data_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_fim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.NOME AS NOME_ALUNO, C.NOME AS NOME_CURSO, P.DATA_INICIAL AS DATA_INI, P.DATA_FINAL AS DATA_FIM, A.RG AS RG, P.NUMERO_REGISTRO_OFICIAL AS NUMERO_REGISTRO, P.CANCELADO, P.NOTA
+FROM PEDIDOSS P, CURSOS C, ALUNOS A
+WHERE P.CODIGO_ALUNO = A.CODIGO AND
+      P.CODIGO_CURSO = C.CODIGO AND
+      ((DATA_INICIAL >= $P{data_inicio} AND DATA_FINAL <= $P{data_fim})) AND 
+      P.ANTIGO = FALSE
+ORDER BY P.NUMERO_REGISTRO_OFICIAL ASC]]>
+	</queryString>
+	<field name="NOME_ALUNO" class="java.lang.String"/>
+	<field name="NOME_CURSO" class="java.lang.String"/>
+	<field name="DATA_INI" class="java.sql.Timestamp"/>
+	<field name="DATA_FIM" class="java.sql.Timestamp"/>
+	<field name="RG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMERO_REGISTRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CANCELADO" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOTA" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="21">
+			<textField>
+				<reportElement x="475" y="0" width="80" height="20" uuid="af1f7886-aca9-4014-aebe-ec91caa1f010"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Folha "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="0" width="43" height="18" uuid="4128d5a6-dd68-4ec8-a53d-985dc6049aac"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="0" width="280" height="18" uuid="3be6b592-c2fb-409e-9d74-76cdefca1dae"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="18" width="280" height="18" uuid="8a08dcd6-87e4-43a1-bf0a-ea5e469579c9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Curso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="64" height="18" uuid="4a66b848-eebe-428c-8a53-a5fc25237376"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="0" width="82" height="18" uuid="89bee489-81e5-444c-b202-a27479039286"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Início]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="18" width="82" height="18" uuid="2227c6e2-95b2-47d1-b573-2d6cd0ee7379"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Fim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="517" y="0" width="40" height="18" uuid="56549264-ba82-41d2-b5c3-53a5698c7db9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nota]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="36" width="555" height="1" uuid="e3216493-06ea-431d-8f50-1af7d01c8214"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="0" width="553" height="40" uuid="e777d931-4a95-4133-b3b5-ee4afe29df07">
+					<printWhenExpression><![CDATA[new Boolean($F{CANCELADO} == 1)]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<rectangle>
+				<reportElement x="0" y="0" width="557" height="40" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="b4380bde-789a-485a-b514-7a2a977e6def">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="43" height="18" uuid="f4ae0639-4cd4-46c5-88a1-e22d30efe417"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[$F{NUMERO_REGISTRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="0" width="316" height="16" uuid="4bf9812a-3834-4bee-979c-4c2968713eb5"/>
+				<textElement markup="none">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME_ALUNO}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="0" width="64" height="16" uuid="9ec705d4-61df-481f-9cbf-ba9e1596468e"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[$F{RG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="515" y="0" width="40" height="16" uuid="980783e7-6e6d-49b2-86fa-b2c39d9d4994"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[$F{NOTA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="433" y="0" width="82" height="18" uuid="0e1e1538-bc82-4e52-b4e3-bc696dca1846"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[$F{DATA_INI}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="433" y="13" width="82" height="16" uuid="8125f0d8-b9bc-40f1-a0cd-0d51dc816618"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[$F{DATA_FIM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="11" width="316" height="29" uuid="298a8bee-9ee7-4b9c-9501-c0dc57a3630b"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[$F{NOME_CURSO}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="557" height="40" uuid="f79e6183-a7e9-4066-bfb9-b047dbda36c5">
+					<printWhenExpression><![CDATA[new Boolean($F{CANCELADO} == 1)]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="557" height="40" uuid="926d980a-b7fc-4562-8c63-fa020718302d">
+					<printWhenExpression><![CDATA[new Boolean($F{CANCELADO} == 1)]]></printWhenExpression>
+				</reportElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CertificadoAtras_Grade" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b18d1146-01dd-486f-aed0-69c30f5f3784">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo_curso" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ASSUNTO, CARGA_HORARIA_MINUTOS
+FROM CURSOS_ASSUNTOS
+WHERE CODIGO_CURSO = $P{codigo_curso}
+ORDER BY SEQUENCIAL]]>
+	</queryString>
+	<field name="ASSUNTO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CARGA_HORARIA_MINUTOS" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="68" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="10" y="0" width="236" height="68" isRemoveLineWhenBlank="true" uuid="4eaca27d-9af3-4b29-930a-63b6871c1539"/>
+				<textElement>
+					<font size="11" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ASSUNTO}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<ellipse>
+				<reportElement x="2" y="5" width="4" height="6" backcolor="#000000" uuid="82b3c2a8-f6ec-40f6-a5d5-1c955165faea"/>
+			</ellipse>
+			<textField>
+				<reportElement x="294" y="0" width="125" height="20" uuid="9ba9f51f-253b-4f6e-a3b7-af90c825d562"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CARGA_HORARIA_MINUTOS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

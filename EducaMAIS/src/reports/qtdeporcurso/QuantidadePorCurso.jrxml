@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9db8ac97-1fd6-4e56-9d64-00a84cb21c90">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="data_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_final" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct(codigo_curso), count(1) as qtde, upper(c.nome) as nome, c.carga_horaria as hora
+from pedidoss p, cursos c
+where p.codigo_curso = c.codigo and 
+      ((p.DATA_INICIAL >= $P{data_inicio} AND p.DATA_FINAL <= $P{data_final}))
+group by p.codigo_curso
+order by c.nome, qtde]]>
+	</queryString>
+	<field name="codigo_curso" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtde" class="java.lang.Long"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="23" width="555" height="28" uuid="d4cd4936-0c0d-42ad-bb47-ff5b72ab2930"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade por Curso]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="2" width="555" height="18" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="e99b7844-e189-4221-ad26-09dceb9484ce">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="481" y="2" width="74" height="18" uuid="6a2c1cd0-819c-489c-b98a-4e3fa02109ec"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="2" width="336" height="20" uuid="65200ec5-9707-4629-b672-8bd67a6f00cb"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="c564b6b5-4f47-4565-8609-a12885c53e96"/>
+			</line>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="c564b6b5-4f47-4565-8609-a12885c53e96"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="4b81c1b5-5b24-4ccf-9b60-134dc94b7e0c"/>
+			</line>
+			<staticText>
+				<reportElement x="362" y="2" width="105" height="18" uuid="b53aef05-8615-4ec8-bd06-e5d1bc3daf3f"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carga Horária]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="-2" width="555" height="16" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="47e98c95-0e11-43e0-91ef-0c450e9bb4f1">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="481" y="0" width="74" height="15" uuid="c75207e2-9d5b-49c1-a37f-6e8d1ae9b839"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="0" width="336" height="15" uuid="c12689a6-d630-4c71-87b1-eaa2824360a4"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="0" width="105" height="15" uuid="296e56b3-5aba-44ff-8935-80f65a063883"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

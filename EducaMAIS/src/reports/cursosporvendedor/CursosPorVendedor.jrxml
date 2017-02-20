@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9db8ac97-1fd6-4e56-9d64-00a84cb21c90">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo_vendedor" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_final" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nome_vendedor" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.NOME AS NOME_ALUNO, C.NOME AS NOME_CURSO, DATA_GRAVACAO, NUMERO_REGISTRO, DATA_GRAVACAO, V.NOME AS NAME
+FROM PEDIDOSS P, CURSOS C, ALUNOS A, VENDEDOR V
+WHERE CODIGO_VENDEDOR=IF($P{codigo_vendedor}=99999, CODIGO_VENDEDOR, $P{codigo_vendedor}) AND
+     ((DATA_GRAVACAO >= $P{data_inicio} AND DATA_GRAVACAO <= $P{data_final}) OR DATA_GRAVACAO IS NULL) AND
+     P.CODIGO_CURSO = C.CODIGO AND
+     P.CODIGO_ALUNO = A.CODIGO AND 
+     P.CODIGO_VENDEDOR = V.CODIGO
+ORDER BY V.NOME ASC, DATA_GRAVACAO DESC, DATA_INICIAL ASC]]>
+	</queryString>
+	<field name="NOME_ALUNO" class="java.lang.String"/>
+	<field name="NOME_CURSO" class="java.lang.String"/>
+	<field name="DATA_GRAVACAO" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMERO_REGISTRO" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="802" height="29" uuid="d4cd4936-0c0d-42ad-bb47-ff5b72ab2930"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cursos por Vendedor]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="20" uuid="00f4e4c7-7815-474c-917c-f43c8786f03b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Vendedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="0" width="234" height="20" uuid="66d7674d-bc3c-4ece-8e8d-0fa3f20c9736"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nome_vendedor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="20" uuid="b637c624-bf02-412c-a29c-26907b5b6a3e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="0" width="144" height="20" uuid="b53aef05-8615-4ec8-bd06-e5d1bc3daf3f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="0" width="300" height="20" uuid="6a2c1cd0-819c-489c-b98a-4e3fa02109ec"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="714" y="0" width="88" height="20" uuid="a8bf9547-2283-43f7-a565-4c20719b7c63"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº de Registro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="112" height="20" uuid="65200ec5-9707-4629-b672-8bd67a6f00cb"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="714" y="1" width="88" height="20" uuid="d3728748-2ba3-4e10-ac29-f48d1d23f924"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMERO_REGISTRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="1" width="300" height="20" uuid="c75207e2-9d5b-49c1-a37f-6e8d1ae9b839"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME_CURSO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="1" width="232" height="20" uuid="296e56b3-5aba-44ff-8935-80f65a063883"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME_ALUNO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="1" width="70" height="20" uuid="d4665602-b0dd-47a6-8e50-414a93f8f11d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_GRAVACAO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="1" width="112" height="20" uuid="c12689a6-d630-4c71-87b1-eaa2824360a4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
